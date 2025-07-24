@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Radio Deep</title>
-    <link href="https://www.radiobells.com/script/style.css" type="text/css" rel="stylesheet" />
+    <!-- Favicon (обновлено) -->
+    <link rel="icon" href="Chat-GPT-Image-11-2025-00-10-34.png" type="image/png">
+    <link rel="apple-touch-icon" href="Chat-GPT-Image-11-2025-00-10-34.png">
+    <!-- Стили -->
+    <link href="https://www.radiobells.com/script/style.css" type="text/css" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -24,7 +28,9 @@
             background: rgba(0, 0, 0, 0.7);
             padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3), 0 0 40px rgba(255, 0, 255, 0.2);
+            box-shadow: 
+                0 0 20px rgba(0, 255, 255, 0.3), 
+                0 0 40px rgba(255, 0, 255, 0.2);
             width: 100%;
             max-width: 1350px;
             text-align: center;
@@ -32,34 +38,51 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-            box-sizing: border-box;
         }
         .neon-title {
             font-size: 3em;
             font-weight: bold;
-            text-shadow: 0 0 10px #00ffcc, 0 0 20px #ff00ff, 0 0 30px #00ffcc;
+            text-shadow: 
+                0 0 10px #00ffcc, 
+                0 0 20px #ff00ff, 
+                0 0 30px #00ffcc;
             animation: glow 2s infinite alternate;
+            margin: 0;
         }
         .subtext {
             font-size: 0.9em;
             color: #e0e0e0;
             text-shadow: 0 0 5px #00ffcc;
+            margin: 0;
         }
         @keyframes glow {
-            0% { color: #00ffcc; text-shadow: 0 0 10px #00ffcc, 0 0 20px #ff00ff; }
-            50% { color: #ff00ff; text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffcc; }
-            100% { color: #00ffcc; text-shadow: 0 0 10px #00ffcc, 0 0 20px #ff00ff; }
+            0% { 
+                color: #00ffcc; 
+                text-shadow: 
+                    0 0 10px #00ffcc, 
+                    0 0 20px #ff00ff; 
+            }
+            50% { 
+                color: #ff00ff; 
+                text-shadow: 
+                    0 0 10px #ff00ff, 
+                    0 0 20px #00ffcc; 
+            }
+            100% { 
+                color: #00ffcc; 
+                text-shadow: 
+                    0 0 10px #00ffcc, 
+                    0 0 20px #ff00ff; 
+            }
         }
         #radiobells_container {
             margin-top: 20px;
             background: rgba(0, 0, 0, 0.5);
-            padding: 10px;
+            padding: 20px;
             border-radius: 10px;
             border: 1px solid #ff00ff;
             width: 100%;
             max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
             box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
         }
         #RP_link {
@@ -67,47 +90,31 @@
             text-decoration: none;
             font-size: 1.2em;
             text-shadow: 0 0 5px #00ffcc;
+            transition: all 0.3s;
         }
         #RP_link:hover {
             color: #ff00ff;
-            text-shadow: 0 0 5px #ff00ff;
+            text-shadow: 0 0 10px #ff00ff;
         }
         .footer-text {
             font-size: 0.8em;
             color: #e0e0e0;
             text-shadow: 0 0 5px #00ffcc;
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
-        /* Медиа-запросы для мобильных устройств (до 768px) */
+        /* Адаптивность */
         @media (max-width: 768px) {
             .container {
-                width: 100%;
-                padding: 10px;
-                padding-top: 42px;
-                margin: 20px 0;
-                box-sizing: border-box;
+                padding: 20px 10px;
+                margin: 10px;
+                width: 95%;
             }
             .neon-title {
                 font-size: 2em;
             }
-            .subtext {
-                font-size: 0.8em;
-            }
             #radiobells_container {
-                width: 100%;
-                max-width: none;
-                padding: 5px;
-                box-sizing: border-box;
-            }
-            #RP_link {
-                font-size: 1em;
-            }
-            .footer-text {
-                font-size: 0.7em;
-            }
-            body {
-                overflow-x: hidden;
+                padding: 15px;
             }
         }
     </style>
@@ -116,12 +123,16 @@
     <div class="container">
         <div class="neon-title">Radio Deep</div>
         <div class="subtext">Hey bro, how you doing? 😂</div>
+        
         <div id="radiobells_container">
             <a href="https://www.radiobells.com/" id="RP_link">Radio Deep</a> #radiobells_script_hash
         </div>
+        
         <div class="footer-text">Made by Matros</div>
     </div>
-    <script type="text/javascript">
+
+    <!-- Скрипт RadioBells -->
+    <script>
         var rad_backcolor = "#0d0d1a";
         var rad_logo = "black";
         var rad_autoplay = false;
@@ -140,6 +151,6 @@
             ['https://radiorecord.hostingradio.ru/chil96.aacp', 'Record Chill-Out', 'recordchillout']
         ];
     </script>
-    <script type="text/javascript" src="https://www.radiobells.com/script/v2_1.js" charset="UTF-8"></script>
+    <script src="https://www.radiobells.com/script/v2_1.js" charset="UTF-8"></script>
 </body>
 </html>
