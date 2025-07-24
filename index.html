@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,12 +84,18 @@
 
         /* Медиа-запросы для мобильных устройств (до 768px) */
         @media (max-width: 768px) {
+            body {
+                overflow: hidden; /* Отключаем всю прокрутку */
+                height: 100vh; /* Фиксируем высоту */
+            }
             .container {
                 width: 100%;
                 padding: 10px;
                 padding-top: 42px;
-                margin: 20px 0;
+                margin: 0;
                 box-sizing: border-box;
+                height: 100vh; /* Занимаем всю высоту экрана */
+                overflow: hidden; /* Отключаем прокрутку внутри контейнера */
             }
             .neon-title {
                 font-size: 2em;
@@ -107,9 +114,6 @@
             }
             .footer-text {
                 font-size: 0.7em;
-            }
-            body {
-                overflow-x: hidden;
             }
         }
     </style>
