@@ -1,6 +1,6 @@
 # Radio Deep - Online Deep House Radio
 
-![Site Preview](https://i.postimg.cc/4xryVJ71/Chat-GPT-Image-11-2025-00-10-34.png)
+![Site Preview](https://i.postimg.cc/SxWWJ7ww/2025-07-24-181402.png)
 
 ## Project Description
 
