@@ -263,14 +263,10 @@
             transition: background 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease;
             /* чтобы шапка+подвал+контейнер умещались в экран без прокрутки страницы */
             max-height: calc(100vh - 96px);
-            overflow-y: auto;
+            overflow-y: visible;
             margin-top: auto;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
             margin-bottom: auto;
         }
-
-        .container::-webkit-scrollbar { display: none; }
 
         /* === АНИМИРОВАННЫЙ НЕОНОВЫЙ ЗАГОЛОВОК === */
         h1.neon-title {
@@ -383,7 +379,7 @@
                 margin: 0;
                 height: calc(100vh - 78px);
                 max-height: 100vh;
-                overflow-y: auto;
+                overflow-y: visible;
                 border-radius: 0;
                 border-left: none;
                 border-right: none;
