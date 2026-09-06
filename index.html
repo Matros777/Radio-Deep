@@ -263,7 +263,7 @@
             transition: background 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease;
             /* чтобы шапка+подвал+контейнер умещались в экран без прокрутки страницы */
             max-height: calc(100vh - 96px);
-            overflow-y: visible;
+            overflow-y: clip;
             margin-top: auto;
             margin-bottom: auto;
         }
@@ -379,7 +379,7 @@
                 margin: 0;
                 height: calc(100vh - 78px);
                 max-height: 100vh;
-                overflow-y: visible;
+                overflow-y: clip;
                 border-radius: 0;
                 border-left: none;
                 border-right: none;
@@ -395,7 +395,7 @@
             .footer-text { font-size: 0.7em; margin-top: 6px; }
             .theme-toggle { top: 10px; right: 10px; width: 42px; height: 42px; }
         }
-
+    </style>
 </head>
 <body class="theme-neon">
     <canvas id="bg"></canvas>
