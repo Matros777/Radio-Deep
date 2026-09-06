@@ -94,11 +94,11 @@
             --particle: #5b8fff;
             --shadow-hi: var(--glow-a);
         }
-        /* 4-я тема: приглушённый белый (мягкий off-white) */
+        /* 4-я тема: приглушённый белый (как светлая тема после обновления — чуть темнее) */
         body.theme-soft {
-            --bg-1: #e9eced;
-            --bg-2: #f8f9f9;
-            --container-bg: rgba(250, 251, 251, 0.7);
+            --bg-1: #d9dde2;
+            --bg-2: #e9ecef;
+            --container-bg: rgba(235, 238, 241, 0.72);
             --container-border: rgba(110, 130, 150, 0.3);
             --glow-a: 70, 110, 140;
             --glow-b: 130, 120, 170;
@@ -518,7 +518,10 @@
             var canvas = document.getElementById('bg');
             var ctx = canvas.getContext('2d');
             var w, h, raf;
+            // стартуем с сохранённой темы, чтобы после обновления страницы
+            // фон не оставался тёмным (раньше канвас всегда начинал с neon)
             var currentTheme = 'neon';
+            try { currentTheme = localStorage.getItem('radio-theme') || 'neon'; } catch (e) {}
 
             function resize() {
                 w = canvas.width = window.innerWidth;
@@ -594,7 +597,7 @@
             function draw(t) {
                 // фоновая подложка по теме
                 var isLight = (currentTheme === 'light' || currentTheme === 'soft');
-                ctx.fillStyle = currentTheme === 'light' ? '#f3f6ff' : (currentTheme === 'soft' ? '#eef0f0' : '#04050c');
+                ctx.fillStyle = currentTheme === 'light' ? '#f3f6ff' : (currentTheme === 'soft' ? '#e2e5e8' : '#04050c');
                 ctx.fillRect(0, 0, w, h);
 
                 // аврора
