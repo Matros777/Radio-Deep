@@ -367,6 +367,15 @@
             margin-top: 14px;
         }
 
+        /* === СКРЫВАЕМ СКРОЛЛБАР В СПИСКЕ СТАНЦИЙ === */
+        #rad_list {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+        #rad_list::-webkit-scrollbar {
+            display: none !important;
+        }
+
         /* === АДАПТИВ (МОБИЛЬНЫЕ) === */
         @media (max-width: 768px) {
             body { overflow: hidden; height: 100vh; }
@@ -436,14 +445,11 @@
             <a href="https://www.radiobells.com/" id="RP_link" rel="noopener">Radio Deep</a> #radiobells_script_hash
         </div>
 
-        <div class="footer-text">Made by Matros</div>
-    </div>
+        </div>
 
     <!-- Компактный подвал -->
     <footer class="site-footer">
-        <span>© 2026 Radio Deep</span>
-        <span class="f-sep">·</span>
-        <a href="https://www.radiobells.com/" rel="noopener">Powered by RadioBells</a>
+        <span>© 2026 Radio Deep · Made by Matros</span>
     </footer>
 
     <script type="text/javascript">
@@ -639,5 +645,36 @@
         ];
     </script>
     <script type="text/javascript" src="https://www.radiobells.com/script/v2_1.js" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+        // === ЛИМИТ СТАНЦИЙ В ВЫПАДАЮЩЕМ СПИСКЕ ===
+        (function () {
+            var MAX_DESKTOP = 8;
+            var MAX_MOBILE = 10;
+            function limitStations() {
+                var list = document.getElementById('rad_list');
+                if (!list) return;
+                var isMobile = window.innerWidth <= 768;
+                var max = isMobile ? MAX_MOBILE : MAX_DESKTOP;
+                var items = list.querySelectorAll('.rad_selection');
+                for (var i = 0; i < items.length; i++) {
+                    items[i].style.display = i < max ? '' : 'none';
+                }
+                list.style.maxHeight = '';
+                list.style.overflowY = 'hidden';
+            }
+            // ждём появления списка (скрипт radiobells генерирует DOM асинхронно)
+            var tries = 0;
+            var timer = setInterval(function () {
+                var list = document.getElementById('rad_list');
+                if (list && list.querySelectorAll('.rad_selection').length > 0) {
+                    clearInterval(timer);
+                    limitStations();
+                    window.addEventListener('resize', limitStations);
+                }
+                if (++tries > 50) clearInterval(timer);
+            }, 200);
+        })();
+    </script>
 </body>
 </html>
