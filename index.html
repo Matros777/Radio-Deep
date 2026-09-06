@@ -395,6 +395,22 @@
             .footer-text { font-size: 0.7em; margin-top: 6px; }
             .theme-toggle { top: 10px; right: 10px; width: 42px; height: 42px; }
         }
+
+        /* === ТОНКИЙ ТЕМНЫЙ СКРОЛЛБАР СПИСКА СТАНЦИЙ === */
+        #rad_list {
+            scrollbar-width: thin !important;
+            scrollbar-color: #555b6e transparent !important;
+            -ms-overflow-style: auto !important;
+        }
+        #rad_list::-webkit-scrollbar { width: 6px !important; }
+        #rad_list::-webkit-scrollbar-track { background: transparent !important; }
+        #rad_list::-webkit-scrollbar-thumb {
+            background: #4a5060 !important;
+            border-radius: 6px !important;
+            border: 2px solid transparent !important;
+            background-clip: content-box !important;
+        }
+        #rad_list::-webkit-scrollbar-thumb:hover { background: #5c6373 !important; background-clip: content-box !important; }
     </style>
 </head>
 <body class="theme-neon">
