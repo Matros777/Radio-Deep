@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://matros777.github.io/Radio-Deep/sitemap.xml
