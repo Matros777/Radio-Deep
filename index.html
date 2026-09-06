@@ -11,6 +11,13 @@
     <meta name="google-site-verification" content="oKhuTw3lmnser1nHF2ng8H0zmpjZRAQXAAU7uoxns_s" />
     <link rel="icon" href="https://i.postimg.cc/Y0bFnKVB/favicon-120x120.png" type="image/png">
     <link rel="canonical" href="https://radio-deep.vercel.app/" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#04050c" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Radio Deep">
+    <link rel="apple-touch-icon" href="/icon-192.png" />
     <link href="https://www.radiobells.com/script/style.css" type="text/css" rel="stylesheet" />
 
     <!-- Open Graph (соцсети) -->
@@ -747,5 +754,16 @@
         ];
     </script>
     <script type="text/javascript" src="https://www.radiobells.com/script/v2_1.js" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+        // === PWA: регистрация Service Worker ===
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/sw.js').catch(function (err) {
+                    console.warn('SW registration failed:', err);
+                });
+            });
+        }
+    </script>
 </body>
 </html>

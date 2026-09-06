@@ -1,0 +1,31 @@
+{
+  "name": "Radio Deep - Online Deep House & Trance Radio",
+  "short_name": "Radio Deep",
+  "description": "Listen to Deep House, Trance, Chill-out and Electronic music stations online 24/7.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#04050c",
+  "theme_color": "#04050c",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
