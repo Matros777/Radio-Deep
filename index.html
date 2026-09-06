@@ -367,7 +367,6 @@
             margin-top: 14px;
         }
 
-
         /* === АДАПТИВ (МОБИЛЬНЫЕ) === */
         @media (max-width: 768px) {
             body { overflow: hidden; height: 100vh; }
@@ -396,6 +395,10 @@
             .footer-text { font-size: 0.7em; margin-top: 6px; }
             .theme-toggle { top: 10px; right: 10px; width: 42px; height: 42px; }
         }
+
+        /* Hide station list scrollbar */
+        #rad_list { scrollbar-width: none; -ms-overflow-style: none; }
+        #rad_list::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="theme-neon">
@@ -437,11 +440,14 @@
             <a href="https://www.radiobells.com/" id="RP_link" rel="noopener">Radio Deep</a> #radiobells_script_hash
         </div>
 
-        </div>
+        <div class="footer-text">Made by Matros</div>
+    </div>
 
     <!-- Компактный подвал -->
     <footer class="site-footer">
-        <span>© 2026 Radio Deep · Made by Matros</span>
+        <span>© 2026 Radio Deep</span>
+        <span class="f-sep">·</span>
+        <a href="https://www.radiobells.com/" rel="noopener">Powered by RadioBells</a>
     </footer>
 
     <script type="text/javascript">
