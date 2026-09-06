@@ -367,22 +367,46 @@
             margin-top: 14px;
         }
 
-        /* === СПИСОК СТАНЦИЙ — ВНЕ КОНТЕЙНЕРА === */
+        /* === СПИСОК СТАНЦИЙ — ВЫЕЗЖАЕТ ВНИЗ === */
         #rad_list {
-            scrollbar-width: none !important;
-            -ms-overflow-style: none !important;
-            overflow-y: hidden !important;
-            z-index: 50 !important;
+            scrollbar-width: thin !important;
+            scrollbar-color: rgba(var(--glow-a), 0.4) transparent !important;
+            -ms-overflow-style: auto !important;
+            z-index: 100 !important;
             position: fixed !important;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(var(--glow-a), 0.3);
-            border: 1px solid var(--container-border);
-            border-radius: 12px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            background: var(--container-bg);
+            border-radius: 10px !important;
+            border: 1px solid var(--container-border) !important;
+            background: rgba(8, 10, 22, 0.95) !important;
+            backdrop-filter: blur(14px) !important;
+            -webkit-backdrop-filter: blur(14px) !important;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 16px rgba(var(--glow-a), 0.2) !important;
+            width: 220px !important;
+            max-height: 320px !important;
+            overflow-y: auto !important;
+            padding: 4px 0 !important;
         }
         #rad_list::-webkit-scrollbar {
-            display: none !important;
+            width: 5px !important;
+        }
+        #rad_list::-webkit-scrollbar-track {
+            background: transparent !important;
+        }
+        #rad_list::-webkit-scrollbar-thumb {
+            background: rgba(var(--glow-a), 0.4) !important;
+            border-radius: 3px !important;
+        }
+        #rad_list .rad_selection {
+            padding: 6px 12px !important;
+            font-size: 12px !important;
+            color: var(--text-hi) !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            border-bottom: 1px solid rgba(var(--glow-a), 0.08) !important;
+            transition: background 0.2s !important;
+        }
+        #rad_list .rad_selection:hover {
+            background: rgba(var(--glow-a), 0.15) !important;
         }
 
         /* === АДАПТИВ (МОБИЛЬНЫЕ) === */
@@ -658,90 +682,70 @@
     <script type="text/javascript">
         // === ВЫНЕСЕНИЕ СПИСКА СТАНЦИЙ ЗА ПРЕДЕЛЫ КОНТЕЙНЕРА ===
         (function () {
-            var MAX_DESKTOP = 8;
-            var MAX_MOBILE = 10;
-
             function positionList() {
                 var list = document.getElementById('rad_list');
                 var player = document.getElementById('radiobells_container');
                 if (!list || !player) return;
-                // Позиция плеера на экране
                 var rect = player.getBoundingClientRect();
-                var isMobile = window.innerWidth <= 768;
-                var max = isMobile ? MAX_MOBILE : MAX_DESKTOP;
 
-                // Лимит станций
+                // Показываем ВСЕ станции (убираем display:none)
                 var items = list.querySelectorAll('.rad_selection');
-                var visibleCount = 0;
                 for (var i = 0; i < items.length; i++) {
-                    if (i < max) {
-                        items[i].style.display = '';
-                        visibleCount++;
-                    } else {
-                        items[i].style.display = 'none';
-                    }
+                    items[i].style.display = '';
                 }
 
-                // Высота одного элемента ~40-48px, итоговая высота списка
-                var itemH = items[0] ? items[0].offsetHeight : 44;
-                var listH = Math.min(visibleCount, max) * itemH + 10;
-
-                // Позиционируем НАД плеером
+                // Позиция: ВНИЗ от плеера, по центру плеера
                 list.style.position = 'fixed';
                 list.style.left = rect.left + 'px';
                 list.style.width = rect.width + 'px';
-                list.style.maxHeight = listH + 'px';
-                list.style.overflowY = 'hidden';
+                list.style.top = (rect.bottom + 4) + 'px';
+                list.style.bottom = 'auto';
+                list.style.maxHeight = '320px';
+                list.style.overflowY = 'auto';
                 list.style.zIndex = '100';
-
-                // Если список не влезает сверху — открываем вниз
-                if (rect.top - listH < 60) {
-                    list.style.top = (rect.bottom + 4) + 'px';
-                    list.style.bottom = 'auto';
-                } else {
-                    list.style.top = 'auto';
-                    list.style.bottom = (window.innerHeight - rect.top + 4) + 'px';
-                }
             }
 
-            // Перехватываем функцию открытия списка станций
-            var origRadShow = window.rad_show_stations;
-            if (typeof origRadShow === 'function') {
-                window.rad_show_stations = function () {
-                    origRadShow();
-                    setTimeout(positionList, 30);
-                };
-            }
-
-            // Also reposition on resize
-            window.addEventListener('resize', function () {
-                var list = document.getElementById('rad_list');
-                if (list && list.style.display !== 'none' && list.offsetHeight > 0) {
-                    positionList();
-                }
-            });
-
-            // Переносим #rad_list на body, чтобы он не был внутри .container
-            var tries = 0;
-            var timer = setInterval(function () {
+            // Переносим #rad_list на body, чтобы не обрезался контейнером
+            function reparent() {
                 var list = document.getElementById('rad_list');
                 if (list && list.parentElement !== document.body) {
                     document.body.appendChild(list);
-                    clearInterval(timer);
-                    // Повторно перехватываем open, если появился позже
-                    setTimeout(function () {
-                        var orig = window.rad_show_stations;
-                        if (typeof orig === 'function' && !orig.__patched) {
-                            window.rad_show_stations = function () {
-                                orig();
-                                setTimeout(positionList, 30);
-                            };
-                            window.rad_show_stations.__patched = true;
-                        }
-                    }, 500);
                 }
-                if (++tries > 80) clearInterval(timer);
-            }, 150);
+            }
+
+            // Перехватываем rad_show_stations
+            function patchOpen() {
+                if (window.rad_show_stations && !window.rad_show_stations.__patched) {
+                    var orig = window.rad_show_stations;
+                    window.rad_show_stations = function () {
+                        orig();
+                        setTimeout(function () {
+                            reparent();
+                            positionList();
+                        }, 50);
+                    };
+                    window.rad_show_stations.__patched = true;
+                }
+            }
+
+            // Ждём пока всё загрузится
+            var tries = 0;
+            var timer = setInterval(function () {
+                var list = document.getElementById('rad_list');
+                if (list) {
+                    reparent();
+                    patchOpen();
+                    if (list.querySelectorAll('.rad_selection').length > 0) {
+                        clearInterval(timer);
+                    }
+                }
+                if (++tries > 100) clearInterval(timer);
+            }, 100);
+
+            window.addEventListener('resize', function () {
+                var list = document.getElementById('rad_list');
+                if (list && list.offsetHeight > 0) positionList();
+            });
         })();
     </script>
 </body>
