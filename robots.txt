@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://matros777.github.io/Radio-Deep/sitemap.xml
+Sitemap: https://radio-deep.vercel.app/sitemap.xml
