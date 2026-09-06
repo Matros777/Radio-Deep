@@ -94,6 +94,20 @@
             --particle: #5b8fff;
             --shadow-hi: var(--glow-a);
         }
+        /* 4-я тема: приглушённый белый (мягкий off-white) */
+        body.theme-soft {
+            --bg-1: #e9eced;
+            --bg-2: #f8f9f9;
+            --container-bg: rgba(250, 251, 251, 0.7);
+            --container-border: rgba(110, 130, 150, 0.3);
+            --glow-a: 70, 110, 140;
+            --glow-b: 130, 120, 170;
+            --title-grad: linear-gradient(90deg, #4a6a86, #7a6a9e, #4a6a86);
+            --text-hi: #1e2630;
+            --text-sub: #5c6874;
+            --particle: #7c93a6;
+            --shadow-hi: var(--glow-a);
+        }
 
         body {
             margin: 0;
@@ -131,11 +145,21 @@
         body.theme-light .vignette {
             background: radial-gradient(ellipse at center, rgba(255,255,255,0) 50%, rgba(240,245,255,0.5) 100%);
         }
+        /* мягкая виньетка для приглушённой белой темы */
+        body.theme-soft .vignette {
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0) 55%, rgba(228,232,234,0.4) 100%);
+        }
         /* кнопка крутится на светлой теме с тёмной иконкой */
         body.theme-light .theme-toggle {
             border-color: rgba(80, 110, 200, 0.35);
             background: rgba(255, 255, 255, 0.6);
             box-shadow: 0 4px 20px rgba(60, 90, 180, 0.18), 0 0 20px rgba(var(--glow-a), 0.15);
+        }
+        /* кнопка для приглушённой белой темы */
+        body.theme-soft .theme-toggle {
+            border-color: rgba(110, 130, 150, 0.35);
+            background: rgba(250, 251, 251, 0.7);
+            box-shadow: 0 4px 20px rgba(90, 110, 130, 0.18), 0 0 20px rgba(var(--glow-a), 0.12);
         }
 
         /* === КОМПАКТНАЯ ШАПКА === */
@@ -242,6 +266,9 @@
         body.theme-light .theme-toggle .icon-sun { opacity: 0; transform: rotate(90deg); }
         body.theme-light .theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg); }
         body.theme-light .theme-toggle .icon-spark { opacity: 1; transform: rotate(0deg); }
+        body.theme-soft .theme-toggle .icon-sun { opacity: 1; transform: rotate(0deg); }
+        body.theme-soft .theme-toggle .icon-moon { opacity: 0; transform: rotate(-90deg); }
+        body.theme-soft .theme-toggle .icon-spark { opacity: 0; transform: rotate(-90deg); }
 
         /* === НЕОНОВЫЙ СТЕКЛЯННЫЙ КОНТЕЙНЕР === */
         .container {
@@ -467,9 +494,9 @@
         (function () {
             var btn = document.getElementById('themeToggle');
             var storeKey = 'radio-theme';
-            var ORDER = ['neon', 'cosmic', 'light'];
+            var ORDER = ['neon', 'cosmic', 'light', 'soft'];
             function applyTheme(theme) {
-                document.body.classList.remove('theme-neon', 'theme-cosmic', 'theme-light');
+                document.body.classList.remove('theme-neon', 'theme-cosmic', 'theme-light', 'theme-soft');
                 document.body.classList.add('theme-' + theme);
                 try { localStorage.setItem(storeKey, theme); } catch (e) {}
                 if (window.__themeFn) window.__themeFn(theme);
@@ -525,6 +552,14 @@
                     ],
                     particle: '91, 143, 255',
                     starAlpha: 0.5
+                },
+                soft: {
+                    blobs: [
+                        { x: 0.2, y: 0.3, r: 0.5, hue: 200 }, { x: 0.85, y: 0.25, r: 0.45, hue: 240 },
+                        { x: 0.5, y: 0.85, r: 0.5, hue: 215 }, { x: 0.7, y: 0.5, r: 0.4, hue: 185 }
+                    ],
+                    particle: '124, 147, 166',
+                    starAlpha: 0.35
                 }
             };
             var config = CONFIGS[currentTheme];
@@ -558,7 +593,8 @@
 
             function draw(t) {
                 // фоновая подложка по теме
-                ctx.fillStyle = currentTheme === 'light' ? '#f3f6ff' : '#04050c';
+                var isLight = (currentTheme === 'light' || currentTheme === 'soft');
+                ctx.fillStyle = currentTheme === 'light' ? '#f3f6ff' : (currentTheme === 'soft' ? '#eef0f0' : '#04050c');
                 ctx.fillRect(0, 0, w, h);
 
                 // аврора
@@ -578,8 +614,9 @@
                 }
 
                 // тонкая неоновая сетка
-                var gridHue = currentTheme === 'cosmic' ? 230 : (currentTheme === 'light' ? 215 : 180);
-                ctx.strokeStyle = 'hsla(' + gridHue + ', 100%, ' + (currentTheme === 'light' ? '45%' : '60%') + ', ' + (currentTheme === 'light' ? '0.06' : '0.04') + ')';
+                var isLightT = (currentTheme === 'light' || currentTheme === 'soft');
+                var gridHue = currentTheme === 'cosmic' ? 230 : (isLightT ? 215 : 180);
+                ctx.strokeStyle = 'hsla(' + gridHue + ', 100%, ' + (isLightT ? '45%' : '60%') + ', ' + (isLightT ? '0.05' : '0.04') + ')';
                 ctx.lineWidth = 1;
                 var step = 80;
                 var ox = (t * 0.02) % step;
